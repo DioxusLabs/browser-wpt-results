@@ -45,6 +45,25 @@ Defaults: products `chrome firefox safari servo`, runs labelled
 `master,experimental`, output in `./summary`. Tests with status `SKIP` are
 dropped before scoring, as for Blitz. Runs are de-duplicated by wpt.fyi run ID.
 
+## Updates
+
+[`update.yml`](.github/workflows/update.yml) runs every six hours (and on
+demand). It scores any run of the last week that isn't in
+`summary/<product>/runs.json` yet from its wpt.fyi summary file (the first
+master run per UTC day for chrome, firefox, safari, servo and ladybird -
+normally one download per product per day), mirrors Blitz's data (below), and
+pushes the result to `main`.
+
+### Blitz
+
+Blitz isn't on wpt.fyi. Its scores are produced by
+[blitz-wpt-results](https://github.com/DioxusLabs/blitz-wpt-results) in the
+same format, and `summary/blitz/` is a verbatim copy of that repository's
+`summary/` so that every engine can be read from one place. Blitz has one run
+per commit rather than per day, its `product_revision` is the Blitz commit
+sha (plus a `commit_message`), it has no `run_id`, and it only covers the
+areas Blitz runs (`css/**`, `svg/**`).
+
 ## Data format
 
 One dataset per product:
@@ -62,6 +81,8 @@ summary/
       html.json
       ...
   firefox/
+    ...
+  blitz/                      # mirrored from blitz-wpt-results
     ...
 ```
 
