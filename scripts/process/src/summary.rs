@@ -2,7 +2,7 @@
 //! file per WPT directory. Shared with
 //! https://github.com/DioxusLabs/blitz-wpt-results (see README.md).
 
-use std::collections::{BTreeMap, HashSet};
+use std::collections::{BTreeMap, HashMap};
 use std::path::Path;
 
 use serde::{Deserialize, Serialize};
@@ -56,6 +56,11 @@ struct RunsFile {
     runs: Vec<RunMeta>,
 }
 
+/// The pseudo-area holding the whole-run total (sum of every top-level
+/// area), stored as `total.json` next to `runs.json` rather than under
+/// `areas/` so it can't collide with a WPT directory
+pub const TOTAL_AREA: &str = "";
+
 /// Scores for a single area (one WPT folder). `scores` is index-aligned with
 /// `runs.json`: one entry per run. `null` marks a run with no data for this
 /// area.
@@ -71,11 +76,30 @@ pub struct ScoredRun {
 }
 
 /// The whole summary dataset: shared run metadata plus one score file per
-/// area
+/// area (with [`TOTAL_AREA`] as the whole-run total)
 #[derive(Default)]
 pub struct SummaryStore {
     pub runs: Vec<RunMeta>,
     pub areas: BTreeMap<String, Vec<Option<ScoreTuple>>>,
+}
+
+fn area_path(dir: &Path, area: &str) -> std::path::PathBuf {
+    if area == TOTAL_AREA {
+        dir.join("total.json")
+    } else {
+        dir.join("areas").join(format!("{area}.json"))
+    }
+}
+
+fn load_area_file(path: &Path, name: &str, run_count: usize) -> Vec<Option<ScoreTuple>> {
+    let file: AreaFile = serde_json::from_slice(&std::fs::read(path).unwrap())
+        .expect("area file should be valid JSON");
+    assert_eq!(
+        file.scores.len(),
+        run_count,
+        "area file {name} is misaligned with runs.json"
+    );
+    file.scores
 }
 
 fn load_area_files(
@@ -92,14 +116,8 @@ fn load_area_files(
         } else if path.extension().is_some_and(|ext| ext == "json") {
             let stem = path.file_stem().unwrap().to_str().unwrap();
             let name = format!("{prefix}{stem}");
-            let file: AreaFile = serde_json::from_slice(&std::fs::read(&path).unwrap())
-                .expect("area file should be valid JSON");
-            assert_eq!(
-                file.scores.len(),
-                run_count,
-                "area file {name} is misaligned with runs.json"
-            );
-            areas.insert(name, file.scores);
+            let scores = load_area_file(&path, &name, run_count);
+            areas.insert(name, scores);
         }
     }
 }
@@ -111,22 +129,44 @@ impl SummaryStore {
                 .expect("runs.json should be valid JSON");
         let mut areas = BTreeMap::new();
         load_area_files(&dir.join("areas"), "", runs_file.runs.len(), &mut areas);
+        let total = area_path(dir, TOTAL_AREA);
+        if total.exists() {
+            let scores = load_area_file(&total, "total", runs_file.runs.len());
+            areas.insert(TOTAL_AREA.to_string(), scores);
+        }
         Some(SummaryStore {
             runs: runs_file.runs,
             areas,
         })
     }
 
-    /// Append runs, skipping any already present (by wpt.fyi run ID if set,
-    /// otherwise by product revision), then re-sort all files consistently by
-    /// (date, product_revision)
-    pub fn append(&mut self, new_runs: Vec<ScoredRun>) {
-        let mut existing: HashSet<String> = self.runs.iter().map(RunMeta::dedup_key).collect();
+    /// Append runs (de-duplicated by wpt.fyi run ID if set, otherwise by
+    /// product revision), then re-sort all files consistently by
+    /// (date, product_revision). A run that is already present is skipped,
+    /// or has its scores replaced when `replace` is set.
+    pub fn append(&mut self, new_runs: Vec<ScoredRun>, replace: bool) {
+        let mut existing: HashMap<String, usize> = self
+            .runs
+            .iter()
+            .enumerate()
+            .map(|(idx, run)| (run.dedup_key(), idx))
+            .collect();
 
         for run in new_runs {
-            if !existing.insert(run.meta.dedup_key()) {
-                continue;
-            }
+            let key = run.meta.dedup_key();
+            let idx = match existing.get(&key) {
+                Some(_) if !replace => continue,
+                Some(&idx) => idx,
+                None => {
+                    let idx = self.runs.len();
+                    existing.insert(key, idx);
+                    for scores in self.areas.values_mut() {
+                        scores.push(None);
+                    }
+                    self.runs.push(run.meta.clone());
+                    idx
+                }
+            };
 
             // Ensure every area of this run has a file, padding new areas
             // with nulls for pre-existing runs
@@ -137,12 +177,12 @@ impl SummaryStore {
                     .or_insert_with(|| vec![None; run_count]);
             }
 
-            // Append this run's score to every area file (null for areas the
+            // Set this run's score in every area file (null for areas the
             // run has no data for)
             for (area, scores) in &mut self.areas {
-                scores.push(run.scores.get(area).copied());
+                scores[idx] = run.scores.get(area).copied();
             }
-            self.runs.push(run.meta);
+            self.runs[idx] = run.meta;
         }
 
         self.sort();
@@ -177,7 +217,7 @@ impl SummaryStore {
         );
 
         for (area, scores) in &self.areas {
-            let path = areas_dir.join(format!("{area}.json"));
+            let path = area_path(dir, area);
             std::fs::create_dir_all(path.parent().unwrap()).unwrap();
             write_json_lines(
                 &path,
