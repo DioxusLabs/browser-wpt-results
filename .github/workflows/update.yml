@@ -1,0 +1,61 @@
+name: Update summaries
+
+on:
+  schedule:
+    # Browsers get one master run per day on wpt.fyi (starting shortly after
+    # midnight UTC); Blitz publishes on every push
+    - cron: "40 */6 * * *"
+  workflow_dispatch:
+
+# Never run two updates at once: both would push to main
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  CARGO_REGISTRIES_CRATES_IO_PROTOCOL: "sparse"
+
+jobs:
+  update:
+    name: Append new runs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout blitz-wpt-results
+        uses: actions/checkout@v4
+        with:
+          repository: DioxusLabs/blitz-wpt-results
+          path: blitz-wpt-results
+      - uses: dtolnay/rust-toolchain@stable
+
+      # Runs of the last week not yet in summary/<product>/runs.json, scored
+      # from their wpt.fyi summary files (no results-analysis-cache clone in
+      # CI). Normally that is one ~1 MB download per product per day.
+      - name: Score new browser runs
+        run: |
+          cargo run -rp process -- \
+            --source summary --daily \
+            --from "$(date -u -d '-7 days' +%F)" \
+            --product chrome --product firefox --product safari \
+            --product servo --product ladybird --product flow
+
+      # Blitz isn't on wpt.fyi; its summaries are produced by blitz-wpt-results
+      # in the same format and mirrored here so every engine is in one place
+      - name: Sync Blitz summaries
+        run: |
+          rsync -a --delete --exclude README.md blitz-wpt-results/summary/ summary/blitz/
+
+      - name: Commit and push
+        run: |
+          git config user.name blitz-ci
+          git config user.email ci@blitz.is
+          git add summary
+          if git diff --cached --quiet; then
+            echo "No new runs"
+            exit 0
+          fi
+          git commit -m "Update summaries ($(date -u +%F))"
+          git push
