@@ -38,6 +38,9 @@ cargo run -r -- --cache ../results-analysis-cache.git --daily --from 2026-09-01
 # A product that isn't in the cache
 cargo run -r -- --source summary --product ladybird --daily --from 2026-09-01
 
+# Re-score runs that are already present (e.g. after a scoring change)
+cargo run -r -- --cache ../results-analysis-cache.git --daily --from 2026-09-01 --rescore
+
 cargo run -r -- --help
 ```
 
@@ -53,6 +56,7 @@ One dataset per product:
 summary/
   chrome/
     runs.json                 # shared per-run metadata (one entry per run)
+    total.json                # scores for the whole run (sum of all top-level areas)
     areas/
       css.json                # scores for the whole "css" suite
       css/
@@ -83,10 +87,14 @@ summary/
 
 Runs are sorted by `(date, product_revision)`.
 
-### Area files (`areas/<area path>.json`)
+### Area files (`areas/<area path>.json`, `total.json`)
 
 Each area file contains a single `scores` array with **one entry per run,
-index-aligned with `runs.json`** (entry *i* belongs to run *i*):
+index-aligned with `runs.json`** (entry *i* belongs to run *i*). `total.json`
+has the same shape and holds the whole-run total (every top-level area
+summed); it lives next to `runs.json` so it can't collide with a WPT
+directory, and is only written when the whole tree was scored (no
+`--subtree`):
 
 ```json
 {

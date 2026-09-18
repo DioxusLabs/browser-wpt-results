@@ -7,10 +7,11 @@
 
 use std::collections::BTreeMap;
 
-use crate::summary::{RunMeta, ScoreTuple, ScoredRun, score_tuple};
+use crate::summary::{RunMeta, ScoreTuple, ScoredRun, TOTAL_AREA, score_tuple};
 use chrono::SecondsFormat;
 use wptreport::{
-    ScorableReport, SubtestCounts, SubtestNameAndResult, TestResultIter, score_wpt_report,
+    AreaScores, ScorableReport, SubtestCounts, SubtestNameAndResult, TestResultIter,
+    score_wpt_report,
 };
 
 use crate::wptfyi::Run;
@@ -64,13 +65,23 @@ impl ScorableReport for RunResults {
     }
 }
 
-/// Score a run across every directory of the WPT tree. Skipped tests must
-/// already have been stripped by the data source.
-pub fn score_run(run: &Run, results: &RunResults) -> ScoredRun {
-    let scores: BTreeMap<String, ScoreTuple> = score_wpt_report(results)
+/// Score a run across every directory of the WPT tree, plus the whole-run
+/// total ([`TOTAL_AREA`]) when `with_total` is set (i.e. when the whole tree
+/// was scored). Skipped tests must already have been stripped by the data
+/// source.
+pub fn score_run(run: &Run, results: &RunResults, with_total: bool) -> ScoredRun {
+    let area_scores = score_wpt_report(results);
+    let mut scores: BTreeMap<String, ScoreTuple> = area_scores
         .iter()
         .map(|(area, scores)| (area.clone(), score_tuple(scores)))
         .collect();
+    if with_total {
+        let total = area_scores
+            .iter()
+            .filter(|(area, _)| !area.contains('/'))
+            .fold(AreaScores::default(), |acc, (_, scores)| acc + *scores);
+        scores.insert(TOTAL_AREA.to_string(), score_tuple(&total));
+    }
 
     let date = run.start().to_rfc3339_opts(SecondsFormat::Secs, true);
 

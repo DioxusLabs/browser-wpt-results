@@ -48,6 +48,8 @@ struct Args {
     max_runs: Option<usize>,
     /// Only score this subtree of WPT (e.g. `css`)
     subtree: Option<String>,
+    /// Re-score runs that are already in the store instead of skipping them
+    rescore: bool,
     source: Source,
     /// Pause between requests to wpt.fyi / GCS
     fetch_delay: Duration,
@@ -65,6 +67,7 @@ Usage: process [options]
   --daily              Keep only the first run per product per UTC day
   --max-runs <n>       Process at most n runs per product
   --subtree <dir>      Only score this WPT directory (e.g. css)
+  --rescore            Re-score (overwrite) runs already present in the output
   --source <mode>      auto (default) | cache | summary
   --fetch-delay <ms>   Pause between wpt.fyi requests (default: 1000)
 ";
@@ -80,6 +83,7 @@ fn parse_args() -> Args {
         daily: false,
         max_runs: None,
         subtree: None,
+        rescore: false,
         source: Source::Auto,
         fetch_delay: Duration::from_millis(1000),
     };
@@ -100,6 +104,7 @@ fn parse_args() -> Args {
             "--daily" => args.daily = true,
             "--max-runs" => args.max_runs = Some(value().parse().expect("--max-runs number")),
             "--subtree" => args.subtree = Some(value()),
+            "--rescore" => args.rescore = true,
             "--fetch-delay" => {
                 args.fetch_delay =
                     Duration::from_millis(value().parse().expect("--fetch-delay milliseconds"))
@@ -174,7 +179,9 @@ fn main() {
         if args.daily {
             thin_to_daily(&mut runs);
         }
-        runs.retain(|run| !existing.contains(&run.id));
+        if !args.rescore {
+            runs.retain(|run| !existing.contains(&run.id));
+        }
         if let Some(max) = args.max_runs {
             runs.truncate(max);
         }
@@ -208,13 +215,13 @@ fn main() {
                     results
                 }
             };
-            scored.push(score_run(run, &results));
+            scored.push(score_run(run, &results, args.subtree.is_none()));
             if (idx + 1) % 50 == 0 {
                 println!("{product}: scored {}/{} runs", idx + 1, runs.len());
             }
         }
 
-        store.append(scored);
+        store.append(scored, args.rescore);
         store.write(&out_dir);
         println!(
             "{product}: wrote {} runs across {} areas to {} ({from_cache} from cache, \
