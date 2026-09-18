@@ -921,6 +921,7 @@
 {"date":"2026-08-09T20:05:31Z","wpt_revision":"a95401e4e","product_revision":"1093b86cd2ac84c806a65b609832610d394e27e1","commit_message":"wpt: skip non-UTF-8 test files instead of crashing (#659)"},
 {"date":"2026-08-09T20:49:25Z","wpt_revision":"a95401e4e","product_revision":"b57322a7e67cff30a30ef50d103290fa8c394c99","commit_message":"wpt: handle missing or unresolvable ref files gracefully; exclude tools/resources dirs (#660)"},
 {"date":"2026-08-09T21:27:52Z","wpt_revision":"a95401e4e","product_revision":"708eb61323e9dda6d57d6f0a667512bb4dfd0068","commit_message":"WPT runner: support mismatch reftests and multiple rel=match links (#665)"},
+{"date":"2026-08-10T12:23:17Z","wpt_revision":"a95401e4e","product_revision":"1efe22d2524d71ede5b94592204c21f0de644219","commit_message":"Fix duplicate table cell padding with float layout (#675)"},
 {"date":"2026-08-10T17:30:40Z","wpt_revision":"a95401e4e","product_revision":"8c7cfd9187cf7faeeb0b2c0601176abb31bae60e","commit_message":"Fix inner HTML fragment root leak (#681)"},
 {"date":"2026-08-10T18:00:56Z","wpt_revision":"a95401e4e","product_revision":"7167d7bde9ac73d18fdb11b9d15b9334c61bb14a","commit_message":"Keep get_element_by_id index in sync with id attribute mutations (#682)"},
 {"date":"2026-08-10T18:43:20Z","wpt_revision":"a95401e4e","product_revision":"d39637ec0aa4c7a1e0990d8061a9d7f2bd6c95c7","commit_message":"WPT runner: measure data-offset-x/y from the CSSOM View offset parent (#683)"},
@@ -1049,5 +1050,8 @@
 {"date":"2026-09-16T18:40:04Z","wpt_revision":"5a5b2b591","product_revision":"6772b5b7ff748034fcaa9eee2dad4fdf2ec7f9ef","commit_message":"stylo_taffy: ignore insets on position:static boxes (#903)"},
 {"date":"2026-09-16T21:00:49Z","wpt_revision":"5a5b2b591","product_revision":"1b044c2d9d80afafb08304a6b17d96c2579979e5","commit_message":"Use warpbuild runner for WPT tests (#905)"},
 {"date":"2026-09-17T19:06:55Z","wpt_revision":"d552535bc","product_revision":"2a01eaf2b6b9a6d4c081fab49f48ff6b5ec4fb24","commit_message":"Bump pinned WPT revision to `d552535bc` (2026-09-17) (#907)"},
-{"date":"2026-09-17T19:15:43Z","wpt_revision":"d552535bc","product_revision":"9d92719b37c801b8b41c81b799a2a474db8b3936","commit_message":"Propagate scrollable_overflow_rect to atomic inline boxes (#909)"}
+{"date":"2026-09-17T19:15:43Z","wpt_revision":"d552535bc","product_revision":"9d92719b37c801b8b41c81b799a2a474db8b3936","commit_message":"Propagate scrollable_overflow_rect to atomic inline boxes (#909)"},
+{"date":"2026-09-18T01:05:13Z","wpt_revision":"d552535bc","product_revision":"6347f435d00869f3f59c352d26160b0a61ec672c","commit_message":"resolved_style: use implicit track sizes for none tracks in grid-template shorthand (#911)"},
+{"date":"2026-09-18T10:54:27Z","wpt_revision":"d552535bc","product_revision":"190e37ef2d38b04b1d0f8bbb35fbead2fb0be05b","commit_message":"CI: Add weekly job that bumps the pinned WPT revision (#908)"},
+{"date":"2026-09-18T11:22:44Z","wpt_revision":"d552535bc","product_revision":"33af534a5235195c5f365297118aafa95acb4fae","commit_message":"Bump taffy to main (out-of-flow refactor) (#912)"}
 ]}
