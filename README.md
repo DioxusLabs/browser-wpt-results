@@ -50,7 +50,7 @@ dropped before scoring, as for Blitz. Runs are de-duplicated by wpt.fyi run ID.
 [`update.yml`](.github/workflows/update.yml) runs every six hours (and on
 demand). It scores any run of the last week that isn't in
 `summary/<product>/runs.json` yet from its wpt.fyi summary file (the first
-master run per UTC day for chrome, firefox, safari, servo and ladybird -
+master run per UTC day for chrome, firefox, safari, servo, ladybird and flow -
 normally one download per product per day), mirrors Blitz's data (below), and
 pushes the result to `main`.
 

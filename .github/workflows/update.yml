@@ -40,7 +40,7 @@ jobs:
             --source summary --daily \
             --from "$(date -u -d '-7 days' +%F)" \
             --product chrome --product firefox --product safari \
-            --product servo --product ladybird
+            --product servo --product ladybird --product flow
 
       # Blitz isn't on wpt.fyi; its summaries are produced by blitz-wpt-results
       # in the same format and mirrored here so every engine is in one place
