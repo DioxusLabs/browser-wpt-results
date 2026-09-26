@@ -2874,5 +2874,6 @@
 {"date":"2026-09-22T00:16:58Z","wpt_revision":"a825bd10b","product_revision":"156.0.8067.0","run_id":5155701474459648},
 {"date":"2026-09-23T00:55:09Z","wpt_revision":"2471231e7","product_revision":"156.0.8069.0","run_id":5198714095534080},
 {"date":"2026-09-24T00:14:45Z","wpt_revision":"84daed4ae","product_revision":"156.0.8071.0","run_id":6289509892489216},
-{"date":"2026-09-25T00:20:41Z","wpt_revision":"7efa3ab5d","product_revision":"156.0.8073.0","run_id":5201267252264960}
+{"date":"2026-09-25T00:20:41Z","wpt_revision":"7efa3ab5d","product_revision":"156.0.8073.0","run_id":5201267252264960},
+{"date":"2026-09-26T00:13:04Z","wpt_revision":"59e94f772","product_revision":"156.0.8074.0","run_id":6278102358687744}
 ]}
