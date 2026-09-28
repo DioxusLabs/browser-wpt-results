@@ -1079,5 +1079,12 @@
 {"date":"2026-09-26T01:26:00Z","wpt_revision":"d552535bc","product_revision":"2a78f29f358c0b99be06e8c9be193c0a34f68576","commit_message":"Fix hit-testing of hoisted children under a scrolled stacking-context root; move viewport_scroll into NodeTree (#944)"},
 {"date":"2026-09-26T02:08:50Z","wpt_revision":"d552535bc","product_revision":"7100a3b38901085e9a08180d235810cb6a3194c9","commit_message":"Implement out-of-flow hoisting (`position:absolute` and `position:fixed`)  (#922)"},
 {"date":"2026-09-27T01:13:45Z","wpt_revision":"d552535bc","product_revision":"7931e6794d5d0e791660cc3474536047c01239ed","commit_message":"Stop build_inline_layout_recursive from overwriting layout_parent (#953)"},
-{"date":"2026-09-27T20:39:04Z","wpt_revision":"d552535bc","product_revision":"d4c1a7fb2f3788e729a0c01655c930df6683620b","commit_message":"Fix unused NodeFlags import warning in release builds"}
+{"date":"2026-09-27T20:39:04Z","wpt_revision":"d552535bc","product_revision":"d4c1a7fb2f3788e729a0c01655c930df6683620b","commit_message":"Fix unused NodeFlags import warning in release builds"},
+{"date":"2026-09-28T15:29:07Z","wpt_revision":"d552535bc","product_revision":"e445c290d8dce226a2514a8885671ebb78face0a","commit_message":"Implement `vertical-align` via Parley (#832)"},
+{"date":"2026-09-28T16:07:10Z","wpt_revision":"375cf2548","product_revision":"d054f11037ab2d2d5b3e51102e6ab4ee2a70d22c","commit_message":"Bump pinned WPT revision to 375cf2548 (2026-09-28) (#970)"},
+{"date":"2026-09-28T16:23:39Z","wpt_revision":"375cf2548","product_revision":"7d48d0d1cf9ce3e993384354e748ec0ea32c7c3e","commit_message":"Bump Taffy: only resolve abspos auto margins when both insets are set (#971)"},
+{"date":"2026-09-28T16:31:57Z","wpt_revision":"375cf2548","product_revision":"246c759fcd80e2438b4d0f46cb40f19d7f071c55","commit_message":"Bump Taffy: don't stretch absolutely positioned replaced elements between insets (#972)"},
+{"date":"2026-09-28T16:32:18Z","wpt_revision":"375cf2548","product_revision":"151b1b811bcceb18043813936034a338f1322133","commit_message":"Support CSS `line-break` (#933)"},
+{"date":"2026-09-28T16:54:41Z","wpt_revision":"375cf2548","product_revision":"6b6e9f356a6022b329fcaa6a132e8f7572117199","commit_message":"Bump Taffy: viewport-sized initial containing block (#973)"},
+{"date":"2026-09-28T17:19:50Z","wpt_revision":"375cf2548","product_revision":"674d7d2144585baa0f7368b8ad76371c93fe1b65","commit_message":"WPT CI: install a Thai font (fonts-tlwg-loma-otf) on the runner (#975)"}
 ]}
