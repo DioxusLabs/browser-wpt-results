@@ -2880,5 +2880,6 @@
 {"date":"2026-09-28T09:27:46Z","wpt_revision":"1e91be47a","product_revision":"156.0.8075.0","run_id":5183087561670656},
 {"date":"2026-09-29T00:27:51Z","wpt_revision":"27f97e507","product_revision":"156.0.8077.0","run_id":5195077768183808},
 {"date":"2026-09-30T00:18:49Z","wpt_revision":"f1c79523f","product_revision":"156.0.8078.3","run_id":5094481211949056},
-{"date":"2026-10-01T00:28:19Z","wpt_revision":"1881d7f39","product_revision":"157.0.8079.0","run_id":5194107592114176}
+{"date":"2026-10-01T00:28:19Z","wpt_revision":"1881d7f39","product_revision":"157.0.8079.0","run_id":5194107592114176},
+{"date":"2026-10-02T03:13:14Z","wpt_revision":"7d9d48db9","product_revision":"157.0.8081.0","run_id":6307654451593216}
 ]}
