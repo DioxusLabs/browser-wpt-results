@@ -1129,5 +1129,16 @@
 {"date":"2026-10-06T01:33:46Z","wpt_revision":"c271c10de","product_revision":"2335458530518cdf167c55ce635fae99323e0789","commit_message":"Update Taffy for cyclic percentage grid minimum contributions (#1070)"},
 {"date":"2026-10-07T14:54:40Z","wpt_revision":"c271c10de","product_revision":"6369e8bd83470f7b182619485af0bd05c644675d","commit_message":"Treat a bare autofocus attribute as enabled (#1085)"},
 {"date":"2026-10-07T15:34:59Z","wpt_revision":"c271c10de","product_revision":"5ad49e861124fc44534bf706f7fcd5f391fd15b0","commit_message":"Bump Taffy: separate sparse grid cursor metadata (#1080)"},
-{"date":"2026-10-07T17:08:09Z","wpt_revision":"c271c10de","product_revision":"1c23eba7157ee7124d23e189daf96fd54fb78e01","commit_message":"feat: allow tags to be overriddeable by custom widget (#1081)"}
+{"date":"2026-10-07T17:08:09Z","wpt_revision":"c271c10de","product_revision":"1c23eba7157ee7124d23e189daf96fd54fb78e01","commit_message":"feat: allow tags to be overriddeable by custom widget (#1081)"},
+{"date":"2026-10-07T18:55:45Z","wpt_revision":"c271c10de","product_revision":"e47be5acd8d539391ec19d333d9366cbd3223a28","commit_message":"Add cargo-deny license CI and commercial-use review (#1089)"},
+{"date":"2026-10-07T19:04:47Z","wpt_revision":"c271c10de","product_revision":"cfdce896a16f19b131b176d358e61664d71edd73","commit_message":"Bump taffy to d384458f (transpose helpers) (#1091)"},
+{"date":"2026-10-07T20:04:13Z","wpt_revision":"c271c10de","product_revision":"d1b433edbc13da889228ae4f92908f7c28514019","commit_message":"WPT CI: report subtest changes per area in the PR description (#1092)"},
+{"date":"2026-10-07T20:32:52Z","wpt_revision":"c271c10de","product_revision":"cb7b08dc6c59c155854f2c76b156e5941e0f893f","commit_message":"Implement `text-transform: math-auto` and rename ICU feature (#1093)"},
+{"date":"2026-10-07T20:57:51Z","wpt_revision":"c271c10de","product_revision":"5399689d8861c7d0dcff52c86c7baee04a73be42","commit_message":"Implement basic JavaScript Selection API (#1094)"},
+{"date":"2026-10-07T22:37:30Z","wpt_revision":"c271c10de","product_revision":"90763ba90e6a8baf1bdad48530b43c209e679465","commit_message":"Treat degenerate aspect-ratio values (zero or infinite) as auto (#1097)"},
+{"date":"2026-10-07T23:02:51Z","wpt_revision":"c271c10de","product_revision":"031372cca052e518d245432e01663241a3a7d43b","commit_message":"Implement `text-transform: full-width` and `full-size-kana` (#1095)"},
+{"date":"2026-10-07T23:11:01Z","wpt_revision":"c271c10de","product_revision":"82d660e0d93c9b036af00090ca2c28291c1686a2","commit_message":"Move the Taffy tree trait impls from BaseDocument onto LayoutPassState (#1099)"},
+{"date":"2026-10-08T00:02:13Z","wpt_revision":"c271c10de","product_revision":"4d8d114c1b3e63d861e3ea0221c55a131a5feb89","commit_message":"Fix initial marker index outside ordered lists (#1102)"},
+{"date":"2026-10-08T00:25:15Z","wpt_revision":"c271c10de","product_revision":"d8238915b1b6372603477cdf15c26e1740560e11","commit_message":"Apply negative top margins when positioning atomic inlines (#1103)"},
+{"date":"2026-10-08T00:41:58Z","wpt_revision":"c271c10de","product_revision":"2aec6d616be602ab7d731bb1c7f5af626a3d0be0","commit_message":"Implement vertical `writing-mode`s (#1090)"}
 ]}
