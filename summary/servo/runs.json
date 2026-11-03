@@ -1313,5 +1313,6 @@
 {"date":"2026-10-27T04:34:29Z","wpt_revision":"ffc4686d1","product_revision":"Servo 0.7.0-9e70cca35","run_id":6314244023517184},
 {"date":"2026-10-29T23:59:48Z","wpt_revision":"ce5ca3964","product_revision":"Servo 0.7.0-69911d367","run_id":5150990717419520},
 {"date":"2026-10-31T05:40:00Z","wpt_revision":"d399fdd96","product_revision":"Servo 0.7.0-fda2a0e17","run_id":4925412659691520},
-{"date":"2026-11-02T01:13:47Z","wpt_revision":"93d221d6c","product_revision":"Servo 0.8.0-2b94d76a6","run_id":5087156564656128}
+{"date":"2026-11-02T01:13:47Z","wpt_revision":"93d221d6c","product_revision":"Servo 0.8.0-2b94d76a6","run_id":5087156564656128},
+{"date":"2026-11-03T06:54:20Z","wpt_revision":"8b4b06ff5","product_revision":"Servo 0.8.0-2b94d76a6","run_id":4901751485104128}
 ]}
