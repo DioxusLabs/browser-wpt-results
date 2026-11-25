@@ -2656,5 +2656,6 @@
 {"date":"2026-11-21T02:09:50Z","wpt_revision":"edb50e8de","product_revision":"257 preview","run_id":6323137189511168},
 {"date":"2026-11-22T03:38:13Z","wpt_revision":"063eb7cae","product_revision":"257 preview","run_id":5108593637195776},
 {"date":"2026-11-23T01:37:37Z","wpt_revision":"e00a7b14e","product_revision":"257 preview","run_id":6287652018716672},
-{"date":"2026-11-24T13:35:03Z","wpt_revision":"6d6d9ccd1","product_revision":"257 preview","run_id":4825870972485632}
+{"date":"2026-11-24T13:35:03Z","wpt_revision":"6d6d9ccd1","product_revision":"257 preview","run_id":4825870972485632},
+{"date":"2026-11-25T08:22:45Z","wpt_revision":"f83f2f922","product_revision":"257 preview","run_id":6023389794533376}
 ]}
